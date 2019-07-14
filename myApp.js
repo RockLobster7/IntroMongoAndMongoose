@@ -34,13 +34,27 @@ mongoose.connect(process.env.MONGO_URI);
 // age :  number
 // favoriteFoods : array of strings (*)
 
+
 // Use the mongoose basic *schema types*. If you want you can also add more
 // fields, use simple validators like `required` or `unique`, and set
 // `default` values. See the [mongoose docs](http://mongoosejs.com/docs/guide.html).
 
-// <Your code here >
 
-var Person /* = <Your Model> */
+//Everything in Mongoose starts with a Schema. Each schema maps to a MongoDB collection 
+//and defines the shape of the documents within that collection
+//https://mongoosejs.com/docs/guide.html#definition
+
+const Schema = mongoose.Schema;
+
+const personSchema = new Schema({
+  name: { type: String, required: true },
+  age: { type: Number} ,
+  favoriteFoods: { type: [String]},
+
+});
+
+//To use our schema definition, we need to convert our personSchema into a Model we can work with.
+var Person = mongoose.model('Person', personSchema);
 
 // **Note**: Glitch is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -60,6 +74,8 @@ var Person /* = <Your Model> */
 
 /** # [C]RUD part I - CREATE #
 /*  ========================== */
+
+
 
 /** 3) Create and Save a Person */
 
