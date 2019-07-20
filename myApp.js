@@ -93,11 +93,32 @@ var Person = mongoose.model('Person', personSchema);
 //    ...do your stuff here...
 // });
 
-var createAndSavePerson = function(done) {
-  
-  done(null /*, data*/);
+let paul = {
+  name: "Paul",
+  age: "25" ,
+  favoriteFoods: ["carrots", "cake", "cookies"]
+  }
 
+let document = new Person(paul);
+
+var createAndSavePerson = function(done) {
+//https://www.freecodecamp.org/forum/t/mongodb-and-mongoose-create-a-model-and-a-brief-explanation-of-javascript-async-behavior-callback-functions-and-handler-functions/202291/10
+  //this works but i want to rewrite it so i can make more sense of it
+  //document.save((err, data)=> err ? done(err) : done(null, data));
+  
+// document.save returns two parameters. we feed the result as aruments into the nested function
+// which returns the done() callback to the parent function
+  document.save( function (err,result) {
+      if(err) return done(err);
+      done(null, result);
+  });
 };
+
+// var someFunc = function(done) {
+//   ... do something (risky) ...
+//   if(error) return done(error);
+//   done(null, result);
+// };
 
 /** 4) Create many People with `Model.create()` */
 
