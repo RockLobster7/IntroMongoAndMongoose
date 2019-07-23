@@ -121,6 +121,7 @@ var createAndSavePerson = function(done) {
 // };
 
 /** 4) Create many People with `Model.create()` */
+//https://mongoosejs.com/docs/api.html#model_Model.create
 
 // Sometimes you need to create many Instances of your Models,
 // e.g. when seeding a database with initial data. `Model.create()`
@@ -129,11 +130,20 @@ var createAndSavePerson = function(done) {
 // Create many people using `Model.create()`, using the function argument
 // 'arrayOfPeople'.
 
-var createManyPeople = function(arrayOfPeople, done) {
-    
-    done(null/*, data*/);
-    
+let peeps = [
+  {name: "Garry", age: "25", favoriteFoods: ["pie", "strawberries", "pizza"]},
+  {name: "Larry", age: "33", favoriteFoods: ["rabbit", "duck", "bacon"]},
+  {name: "Barry", age: "13", favoriteFoods: ["chocolate", "hot dogs", "diet coke"]}
+  ];
+
+var createManyPeople = function(peeps, done) {
+      Person.create(peeps, function (err,result) {
+      if(err) return done(err);
+      done(null, result);
+  });
 };
+    
+
 
 /** # C[R]UD part II - READ #
 /*  ========================= */
