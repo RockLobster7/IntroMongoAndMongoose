@@ -142,7 +142,6 @@ var createManyPeople = function(peeps, done) {
       done(null, result);
   });
 };
-    
 
 
 /** # C[R]UD part II - READ #
@@ -157,10 +156,19 @@ var createManyPeople = function(peeps, done) {
 // Use the function argument `personName` as search key.
 
 var findPeopleByName = function(personName, done) {
-  
-  done(null/*, data*/);
-
+  Person.find({ name: personName }).exec(function (err,result) {
+      if(err) return done(err);
+      done(null, result);
+  });
 };
+
+/*
+findPeopleByName ("Barry", function(err, data) {
+        console.log("err:" + err, "data:" + data);
+    });
+
+findPeopleByName ("Barry", (err, data) => console.log (err,data));
+*/
 
 /** 6) Use `Model.findOne()` */
 
@@ -172,10 +180,15 @@ var findPeopleByName = function(personName, done) {
 // argument `food` as search key
 
 var findOneByFood = function(food, done) {
+  Person.findOne({ favoriteFoods: food }).exec(function (err,result) {
+      if(err) return done(err);
+      done(null, result);
+    });
+  };
 
-  done(null/*, data*/);
-  
-};
+//findOneByFood ("bacon", (err, data) => console.log (err,data));
+ 
+
 
 /** 7) Use `Model.findById()` */
 
@@ -188,9 +201,13 @@ var findOneByFood = function(food, done) {
 
 var findPersonById = function(personId, done) {
   
-  done(null/*, data*/);
-  
-};
+    Person.findById(personId).exec(function (err,result) {
+      if(err) return done(err);
+      done(null, result);
+    });
+  };
+
+//findPersonById ("5d36f24791f0345691f8e0a5", (err, data) => console.log (err,data));
 
 /** # CR[U]D part III - UPDATE # 
 /*  ============================ */
